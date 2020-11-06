@@ -31,31 +31,30 @@
         image.onload = function(){
           ctx.drawImage( image, 0, 0 );
           var a = document.createElement("a");
-          a.href = canvas.toDataURL("image/png");
-          a.setAttribute("download", "image.png");
+          a.href = canvas.toDataURL("image/jpg");
+          a.setAttribute("download", "image.jpg");
           a.dispatchEvent(new MouseEvent("click"));
         }
         image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData)));
-    
+
       }
     </script>
   </head>
 
   <body>
     <header>
-      <h1 style="font-size: 32px; margin: 40px">あとで決めます.jp</h1>
-        <p style="font-size: 24px; margin: 0px">あなたの料理をフローチャートで描画する素敵な体験</p>
+      <h1 class="header_h1">あとで決めます.jp</h1>
+      <p class="header_p">あなたの料理をフローチャートで描画する素敵な体験</p>
     </header>
 
     <div id="main">
-
       <section id="demo1">
         <table align="center" class="inner">
           <tr>
-            <td style="vertical-align: top;">
-            <h3 style="font-size: 12px; margin: 0px">テンプレを参考にレシピを入力してね。</h3>
+            <td style="vertical-align: top;" class="right-e">
+            <h3>テンプレを参考にレシピを入力してね。</h3>
             <div class="editor-wrapper">
-            <div class="editor editor1">
+              <div class="editor editor1">
 st=>start: Start:>http://www.google.com[blank]
 e=>end:>http://www.google.com
 op1=>operation: My Operation
@@ -69,7 +68,8 @@ st->op1->cond
 cond(yes)->io->e
 cond(no)->para
 para(path1, bottom)->sub1(right)->op1
-para(path2, top)->op1</div>
+para(path2, top)->op1
+              </div>
            </div>
            <!--   Theme:
             <select class="theme">
@@ -80,16 +80,8 @@ para(path2, top)->op1</div>
             <td class="diagram diagram1">This should be a diagram! If you do not see it you need Javascript enabled</td>
           </tr>
         </table>
-
       </section>
-      <!-- ボタンをつけたよ -->
-      <input type="button" value="Generate" onclick="generatepng()">
-      <br />
-      <hr />
-      <br />
-
-
-
+      <input type="button" class="btn-border" value="画像としてダウンロード" onclick="generatepng()">
     <footer>
     </footer>
 
