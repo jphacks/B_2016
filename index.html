@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;700&display=swap" rel="stylesheet" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+
+    <title>あとで決めます.jp</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/19.4.1/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/locize/i18next-locize-backend/i18nextLocizeBackend.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/4.0.2/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript">
+      function generatepng(){
+        var svg = document.querySelector("svg");
+        var svgData = new XMLSerializer().serializeToString(svg);
+        var canvas = document.createElement("canvas");
+        canvas.width = svg.width.baseVal.value;
+        canvas.height = svg.height.baseVal.value;
+
+        var ctx = canvas.getContext("2d");
+        var image = new Image;
+        image.onload = function(){
+          ctx.drawImage( image, 0, 0 );
+          var a = document.createElement("a");
+          a.href = canvas.toDataURL("image/png");
+          a.setAttribute("download", "image.png");
+          a.dispatchEvent(new MouseEvent("click"));
+        }
+        image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData)));
+    
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <h1 style="font-size: 32px; margin: 40px">あとで決めます.jp</h1>
+        <p style="font-size: 24px; margin: 0px">あなたの料理をフローチャートで描画する素敵な体験</p>
+    </header>
+
+    <div id="main">
+
+      <section id="demo1">
+        <table align="center" class="inner">
+          <tr>
+            <td style="vertical-align: top;">
+            <h3 style="font-size: 12px; margin: 0px">テンプレを参考にレシピを入力してね。</h3>
+            <div class="editor-wrapper">
+            <div class="editor editor1">
+st=>start: Start:>http://www.google.com[blank]
+e=>end:>http://www.google.com
+op1=>operation: My Operation
+sub1=>subroutine: My Subroutine
+cond=>condition: Yes
+or No?:>http://www.google.com
+io=>inputoutput: catch something...
+para=>parallel: parallel tasks
+
+st->op1->cond
+cond(yes)->io->e
+cond(no)->para
+para(path1, bottom)->sub1(right)->op1
+para(path2, top)->op1</div>
+           </div>
+           <!--   Theme:
+            <select class="theme">
+              <option value="simple">Simple</option>
+              <option value="hand" selected>Hand drawn</option>
+            </select> -->
+            </td>
+            <td class="diagram diagram1">This should be a diagram! If you do not see it you need Javascript enabled</td>
+          </tr>
+        </table>
+
+      </section>
+      <!-- ボタンをつけたよ -->
+      <input type="button" value="Generate" onclick="generatepng()">
+      <br />
+      <hr />
+      <br />
+
+
+
+    <footer>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <!-- Needed for the text editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="underscore-min.js"></script>
+    <script src="raphael-min.js"></script>
+
+    <script src="flowchart-latest.js"></script>
+    <script src="svginnerhtml.min.js"></script>
+
+    <script type="text/javascript">
+
+      function setup_editor(div, nr) {
+
+        var editor_div = div.find(".editor" + nr);
+        var diagram_div = div.find(".diagram" + nr);
+        var theme_div = div.find(".theme" + nr);
+
+        // Setup the editor diagram
+        var editor = ace.edit(editor_div.get(0));
+        editor.setTheme("ace/theme/Dawn");
+        editor.getSession().setMode("ace/mode/asciidoc");
+        editor.getSession().on('change', _.debounce(on_change, 100));
+
+        theme_div.change(on_change);
+        on_change();
+
+        function on_change() {
+          try {
+            var diagram = flowchart.parse(editor.getValue());
+
+            editor.getSession().setAnnotations([]);
+
+            // Clear out old diagram
+            diagram_div.html('');
+
+            // Draw
+            diagram.drawSVG(diagram_div.get(0));
+
+          } catch(err) {
+            var annotation = {
+              type: "error", // also warning and information
+              column: 0,
+              row: 0,
+              text: err.message
+            };
+            if (err && err.loc) {
+              annotation.row    = err.loc.first_line - 1;
+              annotation.column = err.loc.first_column;
+            }
+            editor.getSession().setAnnotations([annotation]);
+            throw err;
+          }
+        }
+      }
+
+      $(document).ready(function() {
+        // Example diagrams
+
+        // Setup all the editors
+        setup_editor($('#demo1'), 1);
+      });
+
+      $(document).ready(function() {
+        var i18nextOptions = {
+          fallbackLng: 'en',
+          whitelist: ['en', 'de'],
+          backend: {
+            referenceLng: 'en',
+            projectId: '8166472e-7ac6-44e5-a53f-96a6ca165e2b'
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
