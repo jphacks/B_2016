@@ -21,7 +21,7 @@ a small {
 }
 
 .right-e{
-  padding-left:10%;
+  padding-left:5%;
 }
 header {
   padding-bottom: 10px;
@@ -166,7 +166,7 @@ header h2 {
   padding: 8px 16px;
   border-radius: 4px;
   transition: .4s;
-  margin-left: 10%;
+  margin-left: 5%;
 }
 
 .btn-border:hover {
