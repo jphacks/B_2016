@@ -55,21 +55,21 @@
             <td style="vertical-align: top;">
             <h3 style="font-size: 12px; margin: 0px">テンプレを参考にレシピを入力してね。</h3>
             <div class="editor-wrapper">
+              <!-- divの中にcloud9のaceで読み込むためのコマンドを直書きしてるので地獄みがある -->
             <div class="editor editor1">
-st=>start: Start:>http://www.google.com[blank]
-e=>end:>http://www.google.com
-op1=>operation: My Operation
-sub1=>subroutine: My Subroutine
-cond=>condition: Yes
-or No?:>http://www.google.com
-io=>inputoutput: catch something...
-para=>parallel: parallel tasks
-
-st->op1->cond
-cond(yes)->io->e
+st=>start: つくるぞ
+op1=>operation: 米を装う
+op2=>operation: 卵を割る
+op3=>operation: 卵を米に乗せてかき混ぜる
+cond=>condition: 卵はホワホワになったか？
+io=>inputoutput: 10秒ほど待つ
+para=>parallel: もっとかき混ぜる
+op4=>operation: 醤油をかける
+e=>end: いただきます
+st->op1->op2->op3->cond
+cond(yes)->io->op4->e
 cond(no)->para
-para(path1, bottom)->sub1(right)->op1
-para(path2, top)->op1</div>
+para(path1, top)->cond</div>
            </div>
            <!--   Theme:
             <select class="theme">
