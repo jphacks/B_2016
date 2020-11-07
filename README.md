@@ -1,4 +1,4 @@
-# サンプル（プロダクト名）
+# RecipeFlow ~あなたの料理をフローチャートで描画する素敵な体験~
 
 [![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2020/09/JPHACKS2020_ogp.jpg)](https://www.youtube.com/watch?v=G5rULR53uMk)
 
