@@ -1,6 +1,6 @@
 # RecipeFlow ~ あなたの料理をフローチャートで描画する素敵な体験 ~
 
-[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2020/09/JPHACKS2020_ogp.jpg)](https://www.youtube.com/watch?v=G5rULR53uMk)
+![スクリーンショット 2020-11-07 13 57 03](https://user-images.githubusercontent.com/34731535/98432794-356fbb00-2105-11eb-964f-ecb3ccc4d85d.png)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
